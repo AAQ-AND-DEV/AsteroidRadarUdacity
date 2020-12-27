@@ -26,7 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init{
         viewModelScope.launch{
             getAsteroids()
-            //getPod()
+            getPod()
         }
     }
 
@@ -34,14 +34,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _asteroidList =
             parseAsteroidsJsonResult(
                 JSONObject(AsteroidNetwork.asteroidService.getAsteroids("2020-12-25", "2020-12-26",
-            getApplication<AsteroidApplication>().resources.getString(R.string.neoWs_key)).await()))
+            getApplication<AsteroidApplication>().resources.getString(R.string.neoWs_key))))
         _asteroids.value = _asteroidList
     }
 
     private suspend fun getPod(){
         _pod.value = AsteroidNetwork.asteroidService.getPod(
             apiKey = getApplication<AsteroidApplication>().resources.getString(R.string.neoWs_key))
-            .await().asDomainModel()
+            .asDomainModel()
 
     }
 }
