@@ -60,6 +60,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-scalars:$version_retrofit"
+    //Interceptor for logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$version_timber"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
@@ -67,7 +72,7 @@ dependencies {
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"

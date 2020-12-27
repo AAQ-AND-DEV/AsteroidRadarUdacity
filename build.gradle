@@ -21,6 +21,7 @@ buildscript {
         version_junit="4.13.1"
         version_and_test="1.1.2"
         version_espresso="3.3.0"
+        version_timber = "4.7.1"
     }
     repositories {
         google()
