@@ -3,6 +3,7 @@ package com.udacity.asteroidradar.api
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.BuildConfig
 import com.udacity.asteroidradar.PictureOfDay
 import kotlinx.coroutines.Deferred
@@ -21,7 +22,7 @@ interface AsteroidService{
     @GET("neo/rest/v1/feed")
     fun getAsteroids(@Query("START_DATE") start: String,
                      @Query("END_DATE") end: String,
-                     @Query("API_KEY") apiKey: String) : Deferred<ResponseBody>
+                     @Query("API_KEY") apiKey: String) : Deferred<List<Asteroid>>
 
     @GET("planetary/apod")
     fun getPod(@Query("api_key") apiKey: String) : Deferred<NetworkPod>
