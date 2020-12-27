@@ -41,6 +41,12 @@ class MainFragment : Fragment() {
             }
         }
 
+        viewModel.asteroids.observe(viewLifecycleOwner){
+            for (ast in it){
+                Timber.i(ast.codename)
+            }
+        }
+
         return binding.root
     }
 

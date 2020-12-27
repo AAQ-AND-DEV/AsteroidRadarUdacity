@@ -8,7 +8,9 @@ import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.api.AsteroidNetwork
 import com.udacity.asteroidradar.api.asDomainModel
+import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -16,22 +18,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val pod: LiveData<PictureOfDay>
         get() = _pod
 
-    private val _asteroidList = mutableListOf<Asteroid>()
+    private var _asteroidList = listOf<Asteroid>()
     private val _asteroids = MutableLiveData<List<Asteroid>>()
     val asteroids: LiveData<List<Asteroid>>
         get() = _asteroids
 
     init{
         viewModelScope.launch{
-            //getAsteroids()
-            getPod()
+            getAsteroids()
+            //getPod()
         }
     }
 
     private suspend fun getAsteroids(){
-        AsteroidNetwork.asteroidService.getAsteroids("2020-12-25", "2020-12-26",
-            getApplication<AsteroidApplication>().resources.getString(R.string.neoWs_key)).await()
-
+        _asteroidList =
+            parseAsteroidsJsonResult(
+                JSONObject(AsteroidNetwork.asteroidService.getAsteroids("2020-12-25", "2020-12-26",
+            getApplication<AsteroidApplication>().resources.getString(R.string.neoWs_key)).await()))
+        _asteroids.value = _asteroidList
     }
 
     private suspend fun getPod(){

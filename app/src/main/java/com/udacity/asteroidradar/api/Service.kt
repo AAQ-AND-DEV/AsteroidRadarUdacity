@@ -10,6 +10,7 @@ import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -22,7 +23,7 @@ interface AsteroidService{
     @GET("neo/rest/v1/feed")
     fun getAsteroids(@Query("START_DATE") start: String,
                      @Query("END_DATE") end: String,
-                     @Query("API_KEY") apiKey: String) : Deferred<List<Asteroid>>
+                     @Query("API_KEY") apiKey: String) : Deferred<String>
 
     @GET("planetary/apod")
     fun getPod(@Query("api_key") apiKey: String) : Deferred<NetworkPod>
@@ -47,7 +48,7 @@ object AsteroidNetwork{
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.nasa.gov/")
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        //.addConverterFactory(MoshiConverterFactory.create(moshi))
         .addConverterFactory(ScalarsConverterFactory.create())
         .client(client)
         .build()
