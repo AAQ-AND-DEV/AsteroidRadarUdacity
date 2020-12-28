@@ -13,6 +13,15 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     }
 }
 
+@BindingAdapter("contentDescriptionByHazard")
+fun setContentDescByHazard(imgView: ImageView, isHazardous: Boolean){
+    if (isHazardous){
+        imgView.contentDescription = R.string.potentially_hazardous_asteroid_image.toString()
+    } else{
+        imgView.contentDescription = R.string.not_hazardous_asteroid_image.toString()
+    }
+}
+
 @BindingAdapter("asteroidStatusImage")
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
