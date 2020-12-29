@@ -1,8 +1,6 @@
 package com.udacity.asteroidradar.repository
 
 import android.app.Application
-import android.content.res.Resources
-import android.net.Network
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.Asteroid
@@ -20,12 +18,12 @@ class AsteroidsRepository(private val app: Application, private val database: As
         it.asDomainModel()
     }
 
-
     suspend fun refreshAsteroids(){
         withContext(Dispatchers.IO){
-            val asteroids = parseAsteroidsJsonResult(
-                JSONObject( AsteroidNetwork.asteroidService.getAsteroids(TODAYS_DATE, app.resources.getString(
-                R.string.neoWs_key))))
+            val result = AsteroidNetwork.asteroidService.getAsteroids(TODAYS_DATE,
+                app.resources.getString(R.string.neoWs_key))
+            val resultJson = JSONObject( result )
+            val asteroids = parseAsteroidsJsonResult( resultJson )
             val asteroidContainer = NetworkAsteroidContainer(asteroids)
             database.asteroidDao.insertAll(*asteroidContainer.asDatabaseModel().toTypedArray())
         }
