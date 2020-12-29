@@ -22,6 +22,11 @@ fun setContentDescByHazard(imgView: ImageView, isHazardous: Boolean){
     }
 }
 
+@BindingAdapter("contentDescription")
+fun setContentDescToTitle(imgView: ImageView, pod: PictureOfDay){
+    imgView.contentDescription = pod.title
+}
+
 @BindingAdapter("asteroidStatusImage")
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
