@@ -83,7 +83,7 @@ class ExampleInstrumentedTest {
             populateDb()
 
         }
-        val asteroids = dao.getAsteroids().blockingObserve()
+        val asteroids = dao.getAllAsteroids().blockingObserve()
         if (asteroids != null) {
             for (item in asteroids){
                 println(item.toString())
@@ -99,12 +99,12 @@ class ExampleInstrumentedTest {
 
             populateDb()
         }
-        val currAsteroids = dao.getAsteroids().blockingObserve()
+        val currAsteroids = dao.getAllAsteroids().blockingObserve()
         assertEquals(2, currAsteroids?.size)
         runBlocking {
             dao.deleteStaleAsteroids()
         }
-        val newAsteroids = dao.getAsteroids().blockingObserve()
+        val newAsteroids = dao.getAllAsteroids().blockingObserve()
         assertEquals(1, newAsteroids?.size)
     }
 

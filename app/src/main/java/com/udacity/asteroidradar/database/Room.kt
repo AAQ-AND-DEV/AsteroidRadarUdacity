@@ -8,10 +8,12 @@ import retrofit2.http.DELETE
 
 @Dao
 interface AsteroidDao{
-//    @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate >= DATE() ORDER BY closeApproachDate ASC")
-    @Query("SELECT * FROM databaseasteroid ORDER BY closeApproachDate ASC")
 
+    @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate >= DATE() ORDER BY closeApproachDate ASC")
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
+
+    @Query("SELECT * FROM databaseasteroid ORDER BY closeApproachDate ASC")
+    fun getAllAsteroids(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg asteroids: DatabaseAsteroid)
