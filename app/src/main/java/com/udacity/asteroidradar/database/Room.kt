@@ -4,14 +4,20 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.udacity.asteroidradar.api.getTodaysDate
+import retrofit2.http.DELETE
 
 @Dao
 interface AsteroidDao{
-    @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate >= DATE() ORDER BY closeApproachDate ASC")
+//    @Query("SELECT * FROM databaseasteroid WHERE closeApproachDate >= DATE() ORDER BY closeApproachDate ASC")
+    @Query("SELECT * FROM databaseasteroid ORDER BY closeApproachDate ASC")
+
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg asteroids: DatabaseAsteroid)
+
+    @Query("DELETE FROM databaseasteroid WHERE closeApproachDate < DATE()")
+    suspend fun deleteStaleAsteroids()
 }
 
 @Database(entities=[DatabaseAsteroid::class], version = 1, exportSchema = false)

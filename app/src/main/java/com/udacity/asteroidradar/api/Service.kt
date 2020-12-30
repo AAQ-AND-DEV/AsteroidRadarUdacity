@@ -14,6 +14,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.lang.reflect.Type
+import java.util.concurrent.TimeUnit
 
 @Target(AnnotationTarget.FUNCTION,
 AnnotationTarget.PROPERTY_GETTER,
@@ -51,8 +52,10 @@ object AsteroidNetwork{
         else HttpLoggingInterceptor.Level.NONE
     }
 
-    val client = OkHttpClient().newBuilder()
-        .addInterceptor(interceptor).build()
+    private val client = OkHttpClient().newBuilder()
+        .addInterceptor(interceptor)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .build()
 
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.nasa.gov/")
