@@ -67,6 +67,7 @@ object AsteroidNetwork{
     val asteroidService = retrofit.create(AsteroidService::class.java)
 }
 
+//This class was attained from Muriel's comment on https://knowledge.udacity.com/questions/380481
 class EnvelopingConverterFactory : Converter.Factory(){
     override fun responseBodyConverter (
         type: Type,
